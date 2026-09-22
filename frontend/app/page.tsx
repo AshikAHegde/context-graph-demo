@@ -174,7 +174,7 @@ export default function Home() {
               </Button>
               <Button asChild variant="ghost" size="sm">
                 <a
-                  href="https://github.com/johnymontana/context-graph-demo/issues"
+                  href="https://github.com/AshikAHegde/context-graph-demo/issues"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -183,7 +183,7 @@ export default function Home() {
               </Button>
               <Button asChild variant="ghost" size="sm">
                 <a
-                  href="https://github.com/johnymontana/context-graph-demo"
+                  href="https://github.com/AshikAHegde/context-graph-demo"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -221,7 +221,7 @@ export default function Home() {
                       </Menu.Item>
                       <Menu.Item value="issues" asChild>
                         <a
-                          href="https://github.com/johnymontana/context-graph-demo/issues"
+                          href="https://github.com/AshikAHegde/context-graph-demo/issues"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -230,7 +230,7 @@ export default function Home() {
                       </Menu.Item>
                       <Menu.Item value="github" asChild>
                         <a
-                          href="https://github.com/johnymontana/context-graph-demo"
+                          href="https://github.com/AshikAHegde/context-graph-demo"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
