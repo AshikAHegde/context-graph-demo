@@ -1,7 +1,6 @@
 """
 Google Gemini Agent integration with Context Graph tools.
 Provides function-calling tools for querying and updating the context graph.
-Replaces the original Claude Agent SDK integration.
 """
 
 import json

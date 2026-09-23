@@ -99,7 +99,7 @@ Combine semantic similarity (text embeddings) with structural similarity (FastRP
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │   Next.js UI    │────▶│  FastAPI + SDK  │────▶│  Neo4j + GDS    │
-│  Chakra UI v3   │     │  Claude Agent   │     │  Vector Search  │
+│  Chakra UI v3   │     │  Gemini Agent   │     │  Vector Search  │
 │  NVL Graphs     │     │  10 MCP Tools   │     │  FastRP/KNN     │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
 ```
@@ -109,8 +109,7 @@ Combine semantic similarity (text embeddings) with structural similarity (FastRP
 - Python 3.11+ with [uv](https://docs.astral.sh/uv/) package manager
 - Node.js 18+
 - Neo4j AuraDS instance (or local Neo4j Enterprise with GDS plugin)
-- Anthropic API Key
-- OpenAI API Key (for embeddings)
+- Google Gemini API Key
 
 ## Quick Start
 
@@ -126,11 +125,8 @@ NEO4J_URI=neo4j+s://xxxx.databases.neo4j.io
 NEO4J_USERNAME=neo4j
 NEO4J_PASSWORD=your_neo4j_password
 
-# Anthropic API Key (for Claude Agent SDK)
-ANTHROPIC_API_KEY=your_anthropic_key
-
-# OpenAI API Key (for text embeddings)
-OPENAI_API_KEY=your_openai_key
+# Google Gemini API Key (for LLM agent + text embeddings)
+GEMINI_API_KEY=your_gemini_key
 EOF
 ```
 
@@ -269,7 +265,7 @@ context-graph/
 ├── backend/
 │   ├── app/
 │   │   ├── main.py              # FastAPI application
-│   │   ├── agent.py             # Claude Agent SDK with MCP tools
+│   │   ├── agent.py             # Gemini Agent with MCP tools
 │   │   ├── context_graph_client.py  # Neo4j operations
 │   │   ├── gds_client.py        # GDS algorithms
 │   │   ├── vector_client.py     # Vector search
@@ -293,7 +289,7 @@ context-graph/
 
 ## Agent Tools (MCP)
 
-The Claude Agent has access to 10 custom tools:
+The Gemini Agent has access to 10 custom tools:
 
 | Tool | Description |
 |------|-------------|
@@ -359,7 +355,7 @@ ORDER BY combined_score DESC
 ## References
 
 - [AI's Trillion-Dollar Opportunity: Context Graphs](https://foundationcapital.com/context-graphs-ais-trillion-dollar-opportunity/) - Foundation Capital
-- [Claude Agent SDK](https://github.com/anthropics/claude-agent-sdk-python)
+- [Google Gemini API](https://ai.google.dev/)
 - [NVL Visualization Library](https://neo4j.com/docs/nvl/)
 
 ## License

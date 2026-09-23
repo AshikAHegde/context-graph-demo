@@ -34,7 +34,7 @@ Should we approve a $25,000 credit limit increase? The customer has a margin acc
 ```
 
 **What this demonstrates:**
-- `find_precedents` tool uses OpenAI embeddings for semantic similarity
+- `find_precedents` tool uses Gemini embeddings for semantic similarity
 - Returns past decisions with similar reasoning text
 - Shows confidence scores and decision outcomes
 - Policy lookup for Credit Limit Policy
