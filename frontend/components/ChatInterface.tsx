@@ -499,33 +499,37 @@ function ToolCallDisplay({
   return (
     <Box
       key={index}
-      mt={2}
+      mt={1}
       borderLeft="3px solid"
-      borderColor="blue.400"
+      borderColor="purple.400"
       pl={3}
     >
-      <HStack mb={2}>
-        <Badge colorPalette="blue" fontSize="xs">
+      <HStack mb={2} gap={2}>
+        <Badge colorPalette="purple" variant="solid" fontSize="xs">
           Tool Call
         </Badge>
-        <Text fontWeight="bold" fontSize="sm">
+        <Text fontWeight="semibold" fontSize="xs" color="purple.200" fontFamily="mono">
           {toolCall.name.replace("mcp__graph__", "")}
         </Text>
       </HStack>
 
       <Box mb={2}>
-        <Text fontSize="xs" color="gray.600" fontWeight="semibold" mb={1}>
+        <Text fontSize="xs" color="gray.300" fontWeight="semibold" mb={1}>
           Arguments:
         </Text>
         <Code
           display="block"
           whiteSpace="pre-wrap"
-          p={2}
+          p={2.5}
           borderRadius="md"
           fontSize="xs"
-          bg="gray.50"
+          bg="blackAlpha.700"
+          color="gray.100"
+          borderWidth="1px"
+          borderColor="whiteAlpha.200"
           maxH="200px"
           overflowY="auto"
+          fontFamily="mono"
         >
           {formatJSON(toolCall.input)}
         </Code>
@@ -533,18 +537,22 @@ function ToolCallDisplay({
 
       {toolCall.output !== undefined && (
         <Box>
-          <Text fontSize="xs" color="gray.600" fontWeight="semibold" mb={1}>
+          <Text fontSize="xs" color="gray.300" fontWeight="semibold" mb={1}>
             Output:
           </Text>
           <Code
             display="block"
             whiteSpace="pre-wrap"
-            p={2}
+            p={2.5}
             borderRadius="md"
             fontSize="xs"
-            bg="gray.50"
+            bg="blackAlpha.700"
+            color="gray.100"
+            borderWidth="1px"
+            borderColor="whiteAlpha.200"
             maxH="300px"
             overflowY="auto"
+            fontFamily="mono"
           >
             {formatJSON(toolCall.output)}
           </Code>
@@ -561,38 +569,38 @@ function AgentContextDisclosure({
   agentContext: AgentContext;
 }) {
   return (
-    <Box mb={3} pb={3} borderBottom="1px solid" borderColor="gray.200">
+    <Box mb={3} pb={3} borderBottom="1px solid" borderColor="whiteAlpha.200">
       <Accordion.Root collapsible defaultValue={[]}>
         <Accordion.Item value="agent-context" border="none">
           <Accordion.ItemTrigger px={0} py={2} _hover={{ bg: "transparent" }}>
             <Box flex="1" textAlign="left">
-              <HStack>
-                <Badge colorPalette="teal" fontSize="xs">
+              <HStack gap={2}>
+                <Badge colorPalette="teal" variant="subtle" fontSize="xs">
                   Agent Context
                 </Badge>
-                <Text fontSize="xs" color="gray.600">
+                <Text fontSize="xs" color="gray.300">
                   View system prompt and configuration
                 </Text>
               </HStack>
             </Box>
-            <Accordion.ItemIndicator />
+            <Accordion.ItemIndicator color="gray.400" />
           </Accordion.ItemTrigger>
           <Accordion.ItemContent>
             <Accordion.ItemBody px={0} pb={2}>
               <VStack align="stretch" gap={3}>
                 <Box
                   p={3}
-                  bg="teal.50"
+                  bg="teal.950/40"
                   borderRadius="md"
                   border="1px solid"
-                  borderColor="teal.200"
+                  borderColor="teal.800/60"
                 >
                   <VStack align="stretch" gap={3}>
                     {/* Model */}
                     <Box>
                       <Text
                         fontSize="xs"
-                        color="gray.600"
+                        color="gray.300"
                         fontWeight="semibold"
                         mb={1}
                       >
@@ -607,7 +615,7 @@ function AgentContextDisclosure({
                     <Box>
                       <Text
                         fontSize="xs"
-                        color="gray.600"
+                        color="gray.300"
                         fontWeight="semibold"
                         mb={1}
                       >
@@ -622,7 +630,7 @@ function AgentContextDisclosure({
                     <Box>
                       <Text
                         fontSize="xs"
-                        color="gray.600"
+                        color="gray.300"
                         fontWeight="semibold"
                         mb={1}
                       >
@@ -641,7 +649,7 @@ function AgentContextDisclosure({
                     <Box>
                       <Text
                         fontSize="xs"
-                        color="gray.600"
+                        color="gray.300"
                         fontWeight="semibold"
                         mb={1}
                       >
@@ -650,12 +658,16 @@ function AgentContextDisclosure({
                       <Code
                         display="block"
                         whiteSpace="pre-wrap"
-                        p={2}
+                        p={2.5}
                         borderRadius="md"
                         fontSize="xs"
-                        bg="white"
+                        bg="blackAlpha.700"
+                        color="gray.100"
+                        borderWidth="1px"
+                        borderColor="whiteAlpha.200"
                         maxH="300px"
                         overflowY="auto"
+                        fontFamily="mono"
                       >
                         {agentContext.system_prompt}
                       </Code>
@@ -676,21 +688,21 @@ function ToolCallsDisclosure({ toolCalls }: { toolCalls: ToolCall[] }) {
   if (!toolCalls || toolCalls.length === 0) return null;
 
   return (
-    <Box mb={3} pb={3} borderBottom="1px solid" borderColor="gray.200">
+    <Box mb={3} pb={3} borderBottom="1px solid" borderColor="whiteAlpha.200">
       <Accordion.Root collapsible defaultValue={[]}>
         <Accordion.Item value="tool-calls" border="none">
           <Accordion.ItemTrigger px={0} py={2} _hover={{ bg: "transparent" }}>
             <Box flex="1" textAlign="left">
-              <HStack>
-                <Badge colorPalette="purple" fontSize="xs">
+              <HStack gap={2}>
+                <Badge colorPalette="purple" variant="subtle" fontSize="xs">
                   Tool Calls ({toolCalls.length})
                 </Badge>
-                <Text fontSize="xs" color="gray.600">
+                <Text fontSize="xs" color="gray.300">
                   View tool parameters and results
                 </Text>
               </HStack>
             </Box>
-            <Accordion.ItemIndicator />
+            <Accordion.ItemIndicator color="gray.400" />
           </Accordion.ItemTrigger>
           <Accordion.ItemContent>
             <Accordion.ItemBody px={0} pb={2}>
@@ -699,10 +711,10 @@ function ToolCallsDisclosure({ toolCalls }: { toolCalls: ToolCall[] }) {
                   <Box
                     key={index}
                     p={3}
-                    bg="purple.50"
+                    bg="purple.950/40"
                     borderRadius="md"
                     border="1px solid"
-                    borderColor="purple.200"
+                    borderColor="purple.800/60"
                   >
                     <ToolCallDisplay toolCall={toolCall} index={index} />
                   </Box>
@@ -890,9 +902,9 @@ function SuggestionChip({
   return (
     <Text
       fontSize="sm"
-      color="brand.600"
+      color="brand.300"
       cursor="pointer"
-      _hover={{ textDecoration: "underline" }}
+      _hover={{ color: "brand.200", textDecoration: "underline" }}
       onClick={onClick}
     >
       → {text}

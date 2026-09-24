@@ -37,7 +37,7 @@ class GeminiConfig:
 
     api_key: str
     chat_model: str = "gemini-2.5-flash"
-    embedding_model: str = "text-embedding-004"
+    embedding_model: str = "gemini-embedding-001"
     embedding_dimensions: int = 768
 
     @classmethod
@@ -45,7 +45,7 @@ class GeminiConfig:
         return cls(
             api_key=os.getenv("GOOGLE_API_KEY", ""),
             chat_model=os.getenv("GEMINI_CHAT_MODEL", "gemini-2.5-flash"),
-            embedding_model=os.getenv("GEMINI_EMBEDDING_MODEL", "text-embedding-004"),
+            embedding_model=os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-001"),
             embedding_dimensions=int(os.getenv("GEMINI_EMBEDDING_DIMENSIONS", "768")),
         )
 

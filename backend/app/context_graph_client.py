@@ -226,7 +226,7 @@ class ContextGraphClient:
                 """,
                 {"query": query, "limit": limit},
             )
-            return [dict(record) for record in result]
+            return [convert_neo4j_value(dict(record)) for record in result]
 
     def get_customer(self, customer_id: str) -> Optional[dict]:
         """Get a customer by ID with related entities."""
@@ -236,16 +236,17 @@ class ContextGraphClient:
                 MATCH (p:Person {id: $customer_id})
                 OPTIONAL MATCH (p)-[:OWNS]->(a:Account)
                 OPTIONAL MATCH (p)-[:WORKS_FOR]->(o:Organization)
+                WITH p, collect(DISTINCT a {.*}) AS accounts, collect(DISTINCT o {.*}) AS organizations
                 RETURN p {
                     .*,
-                    accounts: collect(DISTINCT a {.*}),
-                    organizations: collect(DISTINCT o {.*})
+                    accounts: accounts,
+                    organizations: organizations
                 } AS customer
                 """,
                 {"customer_id": customer_id},
             )
             record = result.single()
-            return record["customer"] if record else None
+            return convert_neo4j_value(record["customer"]) if record else None
 
     def get_customer_decisions(
         self,
@@ -278,7 +279,7 @@ class ContextGraphClient:
                     "limit": limit,
                 },
             )
-            return [record["decision"] for record in result]
+            return [convert_neo4j_value(record["decision"]) for record in result]
 
     # ============================================
     # DECISION OPERATIONS
@@ -296,20 +297,27 @@ class ContextGraphClient:
                 OPTIONAL MATCH (d)-[:GRANTED_EXCEPTION]->(exception:Exception)
                 OPTIONAL MATCH (d)-[:TRIGGERED]->(escalation:Escalation)
                 OPTIONAL MATCH (d)-[:HAD_CONTEXT]->(context:DecisionContext)
+                WITH d,
+                     maker,
+                     collect(DISTINCT {id: entity.id, labels: labels(entity), name: entity.name}) AS about_entities,
+                     collect(DISTINCT policy {.*}) AS policies,
+                     collect(DISTINCT exception {.*}) AS exceptions,
+                     collect(DISTINCT escalation {.*}) AS escalations,
+                     collect(DISTINCT context {.*}) AS contexts
                 RETURN d {
                     .*,
-                    about_entities: collect(DISTINCT {id: entity.id, labels: labels(entity), name: entity.name}),
+                    about_entities: about_entities,
                     made_by: maker {.*},
-                    policies: collect(DISTINCT policy {.*}),
-                    exceptions: collect(DISTINCT exception {.*}),
-                    escalations: collect(DISTINCT escalation {.*}),
-                    contexts: collect(DISTINCT context {.*})
+                    policies: policies,
+                    exceptions: exceptions,
+                    escalations: escalations,
+                    contexts: contexts
                 } AS decision
                 """,
                 {"decision_id": decision_id},
             )
             record = result.single()
-            return record["decision"] if record else None
+            return convert_neo4j_value(record["decision"]) if record else None
 
     def record_decision(
         self,
@@ -515,7 +523,7 @@ class ContextGraphClient:
                 """,
                 {"category": category},
             )
-            return [record["policy"] for record in result]
+            return [convert_neo4j_value(record["policy"]) for record in result]
 
     def get_policy(self, policy_id: str) -> Optional[dict]:
         """Get a policy by ID."""
@@ -532,7 +540,7 @@ class ContextGraphClient:
                 {"policy_id": policy_id},
             )
             record = result.single()
-            return record["policy"] if record else None
+            return convert_neo4j_value(record["policy"]) if record else None
 
     # ============================================
     # GRAPH VISUALIZATION

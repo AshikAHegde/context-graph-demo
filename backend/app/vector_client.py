@@ -7,6 +7,7 @@ Uses Google Gemini text-embedding-004 for generating embeddings.
 from typing import Optional
 
 from google import genai
+from google.genai import types
 from neo4j import GraphDatabase
 
 from .config import config
@@ -39,9 +40,11 @@ class VectorClient:
         if not self.gemini_client:
             raise ValueError("Google API key not configured")
 
+        config_params = types.EmbedContentConfig(output_dimensionality=self.embedding_dimensions)
         response = self.gemini_client.models.embed_content(
             model=self.embedding_model,
             contents=text,
+            config=config_params,
         )
         return response.embeddings[0].values
 
@@ -50,9 +53,11 @@ class VectorClient:
         if not self.gemini_client:
             raise ValueError("Google API key not configured")
 
+        config_params = types.EmbedContentConfig(output_dimensionality=self.embedding_dimensions)
         response = self.gemini_client.models.embed_content(
             model=self.embedding_model,
             contents=texts,
+            config=config_params,
         )
         return [emb.values for emb in response.embeddings]
 

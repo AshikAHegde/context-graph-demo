@@ -388,28 +388,28 @@ export function ContextGraphView({
           top={2}
           right={2}
           zIndex={10}
-          bg="bg.surface"
-          borderRadius="md"
-          p={3}
-          maxW="280px"
-          maxH="400px"
+          bg="gray.900"
+          borderRadius="lg"
+          p={3.5}
+          maxW="300px"
+          maxH="420px"
           overflow="auto"
-          boxShadow="md"
+          boxShadow="xl"
           borderWidth="1px"
-          borderColor="border.default"
+          borderColor="whiteAlpha.200"
         >
-          <Flex justify="space-between" align="center" mb={2}>
-            <Heading size="sm">
+          <Flex justify="space-between" align="center" mb={2.5}>
+            <Heading size="xs" color="white" fontWeight="bold">
               {selectedElement.type === "node" ? "Node" : "Relationship"}{" "}
               Properties
             </Heading>
-            <CloseButton size="sm" onClick={handleClosePanel} />
+            <CloseButton size="xs" color="gray.400" _hover={{ color: "white", bg: "whiteAlpha.200" }} onClick={handleClosePanel} />
           </Flex>
 
           {selectedElement.type === "node" && (
-            <VStack align="stretch" gap={2}>
+            <VStack align="stretch" gap={2.5}>
               <HStack>
-                <Text fontSize="xs" fontWeight="bold" color="gray.500">
+                <Text fontSize="xs" fontWeight="semibold" color="gray.300">
                   Labels:
                 </Text>
                 <Flex gap={1} flexWrap="wrap">
@@ -428,10 +428,10 @@ export function ContextGraphView({
                 </Flex>
               </HStack>
               <Box>
-                <Text fontSize="xs" fontWeight="bold" color="gray.500" mb={1}>
+                <Text fontSize="xs" fontWeight="semibold" color="gray.300" mb={1.5}>
                   Properties:
                 </Text>
-                <VStack align="stretch" gap={1}>
+                <VStack align="stretch" gap={1.5}>
                   {Object.entries(
                     (selectedElement.data as GraphNode).properties,
                   )
@@ -439,18 +439,22 @@ export function ContextGraphView({
                     .map(([key, value]) => (
                     <Box
                       key={key}
-                      bg="bg.subtle"
-                      p={1}
-                      borderRadius="sm"
-                      fontSize="xs"
+                      bg="blackAlpha.500"
+                      p={2}
+                      borderRadius="md"
+                      borderWidth="1px"
+                      borderColor="whiteAlpha.100"
                     >
-                      <Text fontWeight="medium" color="gray.600">
-                        {key}:
+                      <Text fontWeight="semibold" color="purple.300" fontSize="2xs" textTransform="uppercase" letterSpacing="wider">
+                        {key}
                       </Text>
                       <Text
-                        color="gray.800"
+                        color="gray.100"
+                        fontSize="xs"
                         wordBreak="break-word"
                         whiteSpace="pre-wrap"
+                        mt={0.5}
+                        fontFamily={typeof value === "object" ? "mono" : "inherit"}
                       >
                         {typeof value === "object"
                           ? JSON.stringify(value, null, 2)
@@ -464,53 +468,54 @@ export function ContextGraphView({
           )}
 
           {selectedElement.type === "relationship" && (
-            <VStack align="stretch" gap={2}>
+            <VStack align="stretch" gap={2.5}>
               <HStack>
-                <Text fontSize="xs" fontWeight="bold" color="gray.500">
+                <Text fontSize="xs" fontWeight="semibold" color="gray.300">
                   Type:
                 </Text>
-                <Badge size="sm" colorPalette="gray">
+                <Badge size="sm" colorPalette="purple" variant="solid">
                   {(selectedElement.data as GraphRelationship).type}
                 </Badge>
               </HStack>
-              <Box>
-                <Text fontSize="xs" fontWeight="bold" color="gray.500">
-                  From:{" "}
-                  <Text as="span" fontWeight="normal">
-                    {(selectedElement.data as GraphRelationship).startNodeId}
-                  </Text>
+              <Box bg="blackAlpha.500" p={2} borderRadius="md" borderWidth="1px" borderColor="whiteAlpha.100">
+                <Text fontSize="2xs" fontWeight="semibold" color="gray.400" textTransform="uppercase">
+                  From:
+                </Text>
+                <Text fontSize="xs" color="gray.100" wordBreak="break-all" mt={0.5}>
+                  {(selectedElement.data as GraphRelationship).startNodeId}
                 </Text>
               </Box>
-              <Box>
-                <Text fontSize="xs" fontWeight="bold" color="gray.500">
-                  To:{" "}
-                  <Text as="span" fontWeight="normal">
-                    {(selectedElement.data as GraphRelationship).endNodeId}
-                  </Text>
+              <Box bg="blackAlpha.500" p={2} borderRadius="md" borderWidth="1px" borderColor="whiteAlpha.100">
+                <Text fontSize="2xs" fontWeight="semibold" color="gray.400" textTransform="uppercase">
+                  To:
+                </Text>
+                <Text fontSize="xs" color="gray.100" wordBreak="break-all" mt={0.5}>
+                  {(selectedElement.data as GraphRelationship).endNodeId}
                 </Text>
               </Box>
               {Object.keys(
                 (selectedElement.data as GraphRelationship).properties,
               ).length > 0 && (
                 <Box>
-                  <Text fontSize="xs" fontWeight="bold" color="gray.500" mb={1}>
+                  <Text fontSize="xs" fontWeight="semibold" color="gray.300" mb={1.5}>
                     Properties:
                   </Text>
-                  <VStack align="stretch" gap={1}>
+                  <VStack align="stretch" gap={1.5}>
                     {Object.entries(
                       (selectedElement.data as GraphRelationship).properties,
                     ).map(([key, value]) => (
                       <Box
                         key={key}
-                        bg="bg.subtle"
-                        p={1}
-                        borderRadius="sm"
-                        fontSize="xs"
+                        bg="blackAlpha.500"
+                        p={2}
+                        borderRadius="md"
+                        borderWidth="1px"
+                        borderColor="whiteAlpha.100"
                       >
-                        <Text fontWeight="medium" color="gray.600">
-                          {key}:
+                        <Text fontWeight="semibold" color="purple.300" fontSize="2xs" textTransform="uppercase" letterSpacing="wider">
+                          {key}
                         </Text>
-                        <Text color="gray.800" wordBreak="break-word">
+                        <Text color="gray.100" fontSize="xs" wordBreak="break-word" mt={0.5}>
                           {typeof value === "object"
                             ? JSON.stringify(value, null, 2)
                             : String(value)}
@@ -531,16 +536,15 @@ export function ContextGraphView({
         bottom={2}
         left={2}
         zIndex={10}
-        bg="bg.surface"
+        bg="blackAlpha.700"
         borderRadius="md"
-        px={2}
-        py={1}
+        px={2.5}
+        py={1.5}
         boxShadow="sm"
         borderWidth="1px"
-        borderColor="border.default"
-        opacity={0.8}
+        borderColor="whiteAlpha.200"
       >
-        <Text fontSize="xs" color="gray.500">
+        <Text fontSize="xs" color="gray.300">
           Scroll to zoom | Drag canvas to pan | Drag nodes to move | Click to
           inspect | Double-click to expand
         </Text>

@@ -75,13 +75,13 @@ export function SchemaDrawer({ open, onOpenChange }: SchemaDrawerProps) {
                   <Heading size="md" mb={3}>
                     Overview
                   </Heading>
-                  <Text color="gray.600" mb={3}>
+                  <Text color="gray.300" mb={3}>
                     Context Graph is an AI-powered decision tracing system
                     designed for financial institutions. It captures, stores,
                     and analyzes the reasoning behind every decision made by AI
                     agents and human operators.
                   </Text>
-                  <Text color="gray.600" mb={4}>
+                  <Text color="gray.300" mb={4}>
                     Using a knowledge graph powered by Neo4j, the system
                     maintains full context and provenance for decisions,
                     enabling transparency, auditability, and continuous
@@ -367,8 +367,8 @@ function FeatureItem({
         {number}
       </Box>
       <Box>
-        <Text fontWeight="medium">{title}</Text>
-        <Text fontSize="sm" color="gray.600">
+        <Text fontWeight="medium" color="white">{title}</Text>
+        <Text fontSize="sm" color="gray.300">
           {description}
         </Text>
       </Box>
@@ -395,7 +395,7 @@ function EntityType({
       >
         {name}
       </Badge>
-      <Text fontSize="sm" color="gray.600">
+      <Text fontSize="sm" color="gray.300">
         {description}
       </Text>
     </HStack>

@@ -336,26 +336,29 @@ function RecentDecisionCard({
 
   return (
     <Box
-      bg="bg.subtle"
+      bg="blackAlpha.400"
       p={3}
       borderRadius="md"
       cursor="pointer"
-      _hover={{ bg: "bg.emphasized" }}
+      _hover={{ bg: "whiteAlpha.100", borderColor: "whiteAlpha.300" }}
       onClick={onClick}
       borderLeftWidth="3px"
-      borderLeftColor={`${typeColor}.500`}
+      borderLeftColor={`${typeColor}.400`}
+      borderWidth="1px"
+      borderColor="whiteAlpha.150"
+      transition="all 0.15s ease"
     >
-      <HStack justify="space-between" mb={1} flexWrap="wrap" gap={1}>
-        <HStack gap={1}>
-          <Badge size="sm" colorPalette={typeColor}>
-            {decision.decision_type}
+      <HStack justify="space-between" mb={1.5} flexWrap="wrap" gap={1}>
+        <HStack gap={1.5}>
+          <Badge size="sm" colorPalette={typeColor} variant="solid">
+            {decision.decision_type.replace(/_/g, " ")}
           </Badge>
           <Badge size="sm" colorPalette={categoryColor} variant="outline">
             {decision.category}
           </Badge>
         </HStack>
         {(decision.confidence ?? decision.confidence_score) && (
-          <Text fontSize="xs" color="gray.500">
+          <Text fontSize="xs" color="gray.300" fontWeight="medium">
             {(
               (decision.confidence ?? decision.confidence_score ?? 0) * 100
             ).toFixed(0)}
@@ -363,9 +366,9 @@ function RecentDecisionCard({
           </Text>
         )}
       </HStack>
-      <Text fontSize="sm" color="gray.600" lineClamp={2}>
-        {decision.reasoning?.slice(0, 120) || "No reasoning"}
-        {decision.reasoning && decision.reasoning.length > 120 ? "..." : ""}
+      <Text fontSize="xs" color="gray.200" lineHeight="1.5" lineClamp={2} my={1}>
+        {decision.reasoning?.slice(0, 140) || "No reasoning"}
+        {decision.reasoning && decision.reasoning.length > 140 ? "..." : ""}
       </Text>
       <HStack justify="space-between" mt={2}>
         <Text fontSize="xs" color="gray.400">
@@ -376,7 +379,7 @@ function RecentDecisionCard({
         {Array.isArray(decision.risk_factors) &&
           decision.risk_factors.length > 0 && (
             <Badge size="sm" colorPalette="orange" variant="subtle">
-              {decision.risk_factors.length} risk factors
+              {decision.risk_factors.length} risk factor{decision.risk_factors.length !== 1 ? "s" : ""}
             </Badge>
           )}
       </HStack>
@@ -395,26 +398,28 @@ function DecisionCard({
   direction: "cause" | "effect";
 }) {
   const typeColor = DECISION_TYPE_COLORS[decision.decision_type] || "gray";
-  const arrow = direction === "cause" ? "^" : "v";
+  const arrow = direction === "cause" ? "▲" : "▼";
 
   return (
     <Box
-      bg="bg.subtle"
-      p={2}
+      bg="blackAlpha.400"
+      p={2.5}
       borderRadius="md"
       cursor="pointer"
-      _hover={{ bg: "bg.emphasized" }}
+      _hover={{ bg: "whiteAlpha.100" }}
       onClick={onClick}
+      borderWidth="1px"
+      borderColor="whiteAlpha.150"
       mb={1}
     >
       <HStack gap={2}>
-        <Text color={direction === "cause" ? "blue.500" : "green.500"}>
+        <Text color={direction === "cause" ? "blue.400" : "green.400"} fontSize="xs" fontWeight="bold">
           {arrow}
         </Text>
         <Badge size="sm" colorPalette={typeColor}>
           {decision.decision_type.replace(/_/g, " ")}
         </Badge>
-        <Text fontSize="xs" color="gray.500" flex={1} truncate>
+        <Text fontSize="xs" color="gray.300" flex={1} truncate>
           {decision.category}
         </Text>
       </HStack>
@@ -435,12 +440,14 @@ function SimilarDecisionCard({
 
   return (
     <Box
-      bg="bg.subtle"
+      bg="blackAlpha.400"
       p={3}
       borderRadius="md"
       cursor="pointer"
-      _hover={{ bg: "bg.emphasized" }}
+      _hover={{ bg: "whiteAlpha.100" }}
       onClick={onClick}
+      borderWidth="1px"
+      borderColor="whiteAlpha.150"
     >
       <HStack justify="space-between" mb={1}>
         <Badge size="sm" colorPalette={typeColor}>
@@ -450,12 +457,12 @@ function SimilarDecisionCard({
           <Badge size="sm" variant="outline">
             {similarity_type}
           </Badge>
-          <Text fontSize="xs" fontWeight="bold" color="brand.500">
+          <Text fontSize="xs" fontWeight="bold" color="brand.400">
             {(similarity_score * 100).toFixed(0)}%
           </Text>
         </HStack>
       </HStack>
-      <Text fontSize="sm" color="gray.600" lineClamp={2}>
+      <Text fontSize="xs" color="gray.200" lineHeight="1.5" lineClamp={2} my={1}>
         {decision.reasoning?.slice(0, 150) || "No reasoning"}...
       </Text>
       <Text fontSize="xs" color="gray.400" mt={1}>
