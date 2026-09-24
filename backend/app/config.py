@@ -36,14 +36,20 @@ class GeminiConfig:
     """Google Gemini configuration for LLM agent and text embeddings."""
 
     api_key: str
+    api_keys: list[str] = None  # type: ignore
     chat_model: str = "gemini-2.5-flash"
     embedding_model: str = "gemini-embedding-001"
     embedding_dimensions: int = 768
 
     @classmethod
     def from_env(cls) -> "GeminiConfig":
+        from .gemini_pool import parse_gemini_api_keys
+
+        keys = parse_gemini_api_keys()
+        primary_key = keys[0] if keys else os.getenv("GOOGLE_API_KEY", "")
         return cls(
-            api_key=os.getenv("GOOGLE_API_KEY", ""),
+            api_key=primary_key,
+            api_keys=keys,
             chat_model=os.getenv("GEMINI_CHAT_MODEL", "gemini-2.5-flash"),
             embedding_model=os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-001"),
             embedding_dimensions=int(os.getenv("GEMINI_EMBEDDING_DIMENSIONS", "768")),

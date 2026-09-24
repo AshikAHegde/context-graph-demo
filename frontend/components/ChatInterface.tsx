@@ -366,7 +366,7 @@ export function ChatInterface({
               borderColor="brand.200"
             >
               <Text fontWeight="medium" mb={2}>
-                Welcome to Context Graph Demo
+                Welcome to Context Graph
               </Text>
               <Text
                 fontSize="sm"

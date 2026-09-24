@@ -1,6 +1,6 @@
-# Context Graph Demo
+# Context Graph
 
-A demonstration project showing how to build and use **Context Graphs** with Neo4j for AI-powered decision tracing in financial institutions.
+An enterprise platform showing how to build and use **Context Graphs** with Neo4j for AI-powered decision tracing in financial institutions.
 
 ![Architecture Diagram](img/arch_diagram.png)
 
@@ -33,7 +33,7 @@ Visualize entities, decisions, and causal relationships.
 Inspect reasoning, precedents, and causal chains.
 
 
-## Demo Scenarios
+## Core Scenarios
 
 ![Trading Limit Override Toolcall](img/trading_limit_override_toolcall.png)
 
@@ -78,7 +78,7 @@ Agent:
 
 ![Trading Limit Override Toolcard](img/trading_limit_override_toolcard.png)
 
-This demo showcases three key differentiators of Neo4j for context graphs:
+This platform showcases three key differentiators of Neo4j for context graphs:
 
 ### 1. Data Model Fit
 Neo4j is the natural substrate for context graphs - entities, decisions, and causal relationships map directly to nodes and relationships.
@@ -192,7 +192,7 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "http://localhost:3001",
         "http://127.0.0.1:3001",
-        "https://context-graph-demo.vercel.app",
+        "https://context-graph.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -200,7 +200,7 @@ app.add_middleware(
 )
 ```
 
-Change the URL "https://context-graph-demo.vercel.app" to reflect the public IP and port (3000) you use to access the frontend. If your backend is running, stop and restart it to pick up the change.
+Change the URL "https://context-graph.vercel.app" to reflect the public IP and port (3000) you use to access the frontend. If your backend is running, stop and restart it to pick up the change.
 
 The second thing you will need to do is to set an environment variable before starting the frontend. You should set the variable NEXT_PUBLIC_API_URL to the public URL (including host and port) for the backend:
 

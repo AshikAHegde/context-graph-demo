@@ -1,5 +1,5 @@
 """
-FastAPI application for the Context Graph demo.
+FastAPI application for the Context Graph platform.
 Provides REST API endpoints for the frontend and agent interactions.
 """
 
@@ -80,7 +80,7 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "http://localhost:3001",
         "http://127.0.0.1:3001",
-        "https://context-graph-demo.vercel.app",
+        "https://context-graph.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],

@@ -4,7 +4,7 @@
 
 # Default target
 help:
-	@echo "Context Graph Demo - Available Commands"
+	@echo "Context Graph - Available Commands"
 	@echo ""
 	@echo "Setup:"
 	@echo "  make install          Install all dependencies (backend + frontend)"

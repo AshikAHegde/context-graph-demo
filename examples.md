@@ -1,18 +1,18 @@
-# Context Graph Demo Examples
+# Context Graph System Examples
 
-These examples showcase the key features of the Context Graph application, demonstrating how AI agents can leverage graph-based decision tracing for financial institutions.
+These examples showcase key features of the Context Graph application, illustrating how AI agents leverage graph-based decision tracing for financial institutions.
 
 ---
 
 ## 1. Fraud Detection & Pattern Analysis
 
-**Best for:** Showing fraud detection with graph visualization and flagged transactions
+**Best for:** Fraud detection with graph visualization and flagged transactions
 
 ```
 Valerie Howard has multiple flagged transactions on her checking account. Analyze her account for fraud patterns and find similar cases.
 ```
 
-**What this demonstrates:**
+**Key Highlights:**
 - Customer search populates the graph with account relationships
 - Fraud detection tool uses GDS Node Similarity to find structurally similar accounts
 - Graph shows connections between customer, accounts, and transactions
@@ -33,7 +33,7 @@ Check Alan Kramer's margin account for suspicious activity. He has several flagg
 Should we approve a $25,000 credit limit increase? The customer has a margin account and moderate income. Find similar past credit decisions to guide this recommendation.
 ```
 
-**What this demonstrates:**
+**Key Highlights:**
 - `find_precedents` tool uses Gemini embeddings for semantic similarity
 - Returns past decisions with similar reasoning text
 - Shows confidence scores and decision outcomes
@@ -49,7 +49,7 @@ Should we approve a $25,000 credit limit increase? The customer has a margin acc
 Show me everything about Jacob Fitzpatrick - all his accounts, transactions, and any decisions made about him.
 ```
 
-**What this demonstrates:**
+**Key Highlights:**
 - Customer has 4 accounts (savings, trading, checking)
 - Graph expands to show account relationships
 - Double-click nodes to explore further connections
@@ -65,7 +65,7 @@ Show me everything about Jacob Fitzpatrick - all his accounts, transactions, and
 A customer wants to make a $15,000 wire transfer to an international account. What policies apply and what verification is needed?
 ```
 
-**What this demonstrates:**
+**Key Highlights:**
 - `get_policy` tool finds relevant policies (High-Value Transaction Review, Wire Transfer Verification)
 - Shows policy thresholds and requirements
 - Finds precedent decisions for similar transactions
@@ -80,7 +80,7 @@ A customer wants to make a $15,000 wire transfer to an international account. Wh
 Find decisions related to the recent trading exception we approved. What other decisions are in the same cluster?
 ```
 
-**What this demonstrates:**
+**Key Highlights:**
 - `find_decision_community` uses Louvain algorithm
 - Community nodes connect related decisions via BELONGS_TO relationships
 - Shows how decisions are structurally grouped by causal chains
@@ -95,7 +95,7 @@ Find decisions related to the recent trading exception we approved. What other d
 Samuel Jones wants to exceed his trading limit on his margin account. Find precedents for similar trading exceptions and what the outcomes were.
 ```
 
-**What this demonstrates:**
+**Key Highlights:**
 - Customer has margin and trading accounts
 - Searches for exception decisions in trading category
 - Shows precedent outcomes (approved vs rejected)
@@ -105,13 +105,13 @@ Samuel Jones wants to exceed his trading limit on his margin account. Find prece
 
 ## 7. Multi-Step Investigation
 
-**Best for:** Demonstrating causal chain tracing
+**Best for:** Causal chain tracing
 
 ```
 We had a fraud rejection last week that led to an account freeze. Trace the causal chain - what triggered it and what decisions followed?
 ```
 
-**What this demonstrates:**
+**Key Highlights:**
 - `get_causal_chain` tool traces CAUSED and INFLUENCED relationships
 - Shows upstream causes and downstream effects
 - Decision Trace panel displays the full chain
@@ -119,9 +119,9 @@ We had a fraud rejection last week that led to an account freeze. Trace the caus
 
 ---
 
-## Recommended Demo Flow
+## Recommended Walkthrough
 
-### Opening Demo (2 minutes)
+### Starter Query (2 minutes)
 Start with this comprehensive example:
 
 ```

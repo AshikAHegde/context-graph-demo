@@ -16,19 +16,21 @@ from google.genai import types
 
 load_dotenv()
 
+import sys
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../..")))
+from backend.app.gemini_pool import gemini_pool
+
 # Configuration
 NEO4J_URI = os.getenv("NEO4J_URI", "")
 NEO4J_USERNAME = os.getenv("NEO4J_USERNAME", "neo4j")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "")
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
 
 
 class AshikDataSeeder:
     def __init__(self):
         print(f"Connecting to Neo4j database: {NEO4J_DATABASE} at {NEO4J_URI}...")
         self.driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
-        self.gemini_client = genai.Client(api_key=GOOGLE_API_KEY) if GOOGLE_API_KEY else None
         self.embedding_model = os.getenv("GEMINI_EMBEDDING_MODEL", "gemini-embedding-001")
         self.embedding_dimensions = int(os.getenv("GEMINI_EMBEDDING_DIMENSIONS", "768"))
 
@@ -36,18 +38,17 @@ class AshikDataSeeder:
         self.driver.close()
 
     def get_embedding(self, text: str) -> list[float]:
-        """Generate 768-dim Gemini text embedding with fallback."""
-        if self.gemini_client:
-            try:
-                config_params = types.EmbedContentConfig(output_dimensionality=self.embedding_dimensions)
-                resp = self.gemini_client.models.embed_content(
-                    model=self.embedding_model,
-                    contents=text,
-                    config=config_params,
-                )
-                return resp.embeddings[0].values
-            except Exception as e:
-                print(f"Warning: Failed to generate Gemini embedding ({e}), using normalized pseudo-vector.")
+        """Generate 768-dim Gemini text embedding with automatic multi-key failover."""
+        try:
+            config_params = types.EmbedContentConfig(output_dimensionality=self.embedding_dimensions)
+            resp = gemini_pool.embed_content(
+                model=self.embedding_model,
+                contents=text,
+                config=config_params,
+            )
+            return resp.embeddings[0].values
+        except Exception as e:
+            print(f"Warning: All Gemini API keys failed during embedding generation ({e}), using normalized pseudo-vector.")
         
         # Fallback reproducible deterministic vector if API is unreachable
         random.seed(abs(hash(text)) % (2**32))

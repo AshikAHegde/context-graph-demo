@@ -149,10 +149,10 @@ export default function Home() {
               </a>
               <Box>
                 <Heading size={{ base: "md", md: "lg" }} color="brand.600">
-                  Context Graph Demo
+                  Context Graph
                 </Heading>
                 <Text
-                  color="gray.500"
+                  color="gray.400"
                   fontSize="sm"
                   display={{ base: "none", md: "block" }}
                 >
@@ -174,7 +174,7 @@ export default function Home() {
               </Button>
               <Button asChild variant="ghost" size="sm">
                 <a
-                  href="https://github.com/AshikAHegde/context-graph-demo/issues"
+                  href="https://github.com/AshikAHegde/context-graph/issues"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -183,7 +183,7 @@ export default function Home() {
               </Button>
               <Button asChild variant="ghost" size="sm">
                 <a
-                  href="https://github.com/AshikAHegde/context-graph-demo"
+                  href="https://github.com/AshikAHegde/context-graph"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -221,7 +221,7 @@ export default function Home() {
                       </Menu.Item>
                       <Menu.Item value="issues" asChild>
                         <a
-                          href="https://github.com/AshikAHegde/context-graph-demo/issues"
+                          href="https://github.com/AshikAHegde/context-graph/issues"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -230,7 +230,7 @@ export default function Home() {
                       </Menu.Item>
                       <Menu.Item value="github" asChild>
                         <a
-                          href="https://github.com/AshikAHegde/context-graph-demo"
+                          href="https://github.com/AshikAHegde/context-graph"
                           target="_blank"
                           rel="noopener noreferrer"
                         >

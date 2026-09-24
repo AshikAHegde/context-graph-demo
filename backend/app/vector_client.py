@@ -13,8 +13,11 @@ from neo4j import GraphDatabase
 from .config import config
 
 
+from .gemini_pool import gemini_pool
+
+
 class VectorClient:
-    """Neo4j vector search client for semantic similarity."""
+    """Neo4j vector search client for semantic similarity with multi-key failover."""
 
     def __init__(self):
         self.driver = GraphDatabase.driver(
@@ -22,9 +25,6 @@ class VectorClient:
             auth=(config.neo4j.username, config.neo4j.password),
         )
         self.database = config.neo4j.database
-        self.gemini_client = (
-            genai.Client(api_key=config.gemini.api_key) if config.gemini.api_key else None
-        )
         self.embedding_model = config.gemini.embedding_model
         self.embedding_dimensions = config.gemini.embedding_dimensions
 
@@ -36,12 +36,9 @@ class VectorClient:
     # ============================================
 
     def generate_embedding(self, text: str) -> list[float]:
-        """Generate an embedding for the given text using Google Gemini."""
-        if not self.gemini_client:
-            raise ValueError("Google API key not configured")
-
+        """Generate an embedding for the given text using Google Gemini with failover."""
         config_params = types.EmbedContentConfig(output_dimensionality=self.embedding_dimensions)
-        response = self.gemini_client.models.embed_content(
+        response = gemini_pool.embed_content(
             model=self.embedding_model,
             contents=text,
             config=config_params,
@@ -49,12 +46,9 @@ class VectorClient:
         return response.embeddings[0].values
 
     def generate_embeddings_batch(self, texts: list[str]) -> list[list[float]]:
-        """Generate embeddings for multiple texts."""
-        if not self.gemini_client:
-            raise ValueError("Google API key not configured")
-
+        """Generate embeddings for multiple texts using Google Gemini with failover."""
         config_params = types.EmbedContentConfig(output_dimensionality=self.embedding_dimensions)
-        response = self.gemini_client.models.embed_content(
+        response = gemini_pool.embed_content(
             model=self.embedding_model,
             contents=texts,
             config=config_params,

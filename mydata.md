@@ -1,6 +1,6 @@
 # Ashik Hegde Context Graph & Indian Semantic Dataset (`mydata.md`)
 
-This document details the semantic Indian banking and fintech dataset created for **Ashik Hegde** in Neo4j, explaining the graph architecture, decision traces, causal chains, and the **real showcaseable questions** you can ask the Context Graph AI platform to demonstrate its capabilities.
+This document details the semantic Indian banking and fintech dataset created for **Ashik Hegde** in Neo4j, explaining the graph architecture, decision traces, causal chains, and the **real showcaseable questions** you can ask the Context Graph AI platform to experience its capabilities.
 
 ---
 
@@ -93,7 +93,7 @@ Each decision contains **full rationale text**, risk factors, confidence scores,
 
 ## 3. Real Showcaseable Questions to Ask the Platform
 
-Open the Context Graph web application chat interface (`http://localhost:3000`) and test the following queries to demonstrate the full power of the system:
+Open the Context Graph web application chat interface (`http://localhost:3000`) and test the following queries to showcase the full power of the system:
 
 ### 🌟 Category 1: Comprehensive Entity & Graph Overview
 > **Prompt to ask:**
@@ -181,7 +181,27 @@ RETURN d.reasoning_summary, pol.name, e.name, d.confidence_score;
 
 ---
 
-## 5. How to Re-Run or Extend the Script
+## 5. Multi-Key Gemini API Failover & High Availability
+
+The backend now incorporates [`backend/app/gemini_pool.py`](file:///media/ashik-hegde/Drive2/5edi/context-graph-demo/backend/app/gemini_pool.py) with automatic multi-key failover:
+
+* If an API key encounters **Rate Limits (429)**, **Quota Exhaustion**, or **Network/Auth errors (403/500)**, the system automatically logs a warning, switches to the next configured API key in the pool, and retries the request until a valid response is returned.
+* If all keys in the pool fail, it produces a clear diagnostic error trace.
+* Works seamlessly across both **LLM reasoning/chat** (`ContextGraphAgent`) and **Vector embeddings** (`VectorClient`).
+
+### How to configure multiple keys in `.env`:
+```env
+# Option 1: Comma-separated list
+GOOGLE_API_KEYS=AIzaSyKey1...,AIzaSyKey2...,AIzaSyKey3...
+
+# Option 2: Numbered variables
+GOOGLE_API_KEY_1=AIzaSyKey1...
+GOOGLE_API_KEY_2=AIzaSyKey2...
+```
+
+---
+
+## 6. How to Re-Run or Extend the Script
 
 The script is located at [`backend/scripts/seed_ashik_data.py`](file:///media/ashik-hegde/Drive2/5edi/context-graph-demo/backend/scripts/seed_ashik_data.py).
 

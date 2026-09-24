@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate synthetic sample data for the Context Graph demo.
+Generate synthetic sample data for Context Graph.
 Creates realistic financial institution data with decision traces.
 """
 
@@ -507,7 +507,7 @@ class DataGenerator:
                 "Credit application approved. Customer has credit score of {score}, stable income verified at ${income}/year, "
                 "and debt-to-income ratio of {dti}%. Account has been in good standing for {months} months with no late payments. "
                 "Approved credit limit increase to ${limit}.",
-                "Manual review completed. While credit score of {score} is borderline, customer demonstrates {months} month "
+                "Manual review completed. While credit score of {score} is borderline, customer exhibits {months} month "
                 "relationship history with excellent payment behavior. Exception approved based on relationship value.",
             ],
             ("rejection", "credit"): [

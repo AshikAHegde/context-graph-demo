@@ -3,7 +3,7 @@ import { Provider } from "@/components/ui/provider";
 import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
-  title: "Context Graph Demo",
+  title: "Context Graph",
   description: "AI-powered decision tracing with Neo4j context graphs",
 };
 

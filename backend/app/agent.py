@@ -476,6 +476,9 @@ def get_agent_context() -> dict[str, Any]:
     }
 
 
+from .gemini_pool import gemini_pool
+
+
 # ============================================
 # AGENT SESSION MANAGEMENT
 # ============================================
@@ -485,7 +488,6 @@ class ContextGraphAgent:
     """Wrapper for managing Gemini Agent sessions with function calling."""
 
     def __init__(self):
-        self.client = genai.Client(api_key=config.gemini.api_key)
         self.model = config.gemini.chat_model
         self.tools = types.Tool(function_declarations=TOOL_DECLARATIONS)
 
@@ -498,7 +500,7 @@ class ContextGraphAgent:
     async def query(
         self, message: str, conversation_history: list[dict[str, str]] | None = None
     ) -> dict[str, Any]:
-        """Send a query to the agent and get the response."""
+        """Send a query to the agent and get the response with automatic key failover."""
 
         # Build contents from conversation history
         contents = []
@@ -514,7 +516,7 @@ class ContextGraphAgent:
         max_iterations = 10  # Prevent infinite loops
 
         for _ in range(max_iterations):
-            response = self.client.models.generate_content(
+            response = gemini_pool.generate_content(
                 model=self.model,
                 contents=contents,
                 config=types.GenerateContentConfig(
@@ -575,7 +577,7 @@ class ContextGraphAgent:
     async def query_stream(
         self, message: str, conversation_history: list[dict[str, str]] | None = None
     ):
-        """Send a query to the agent and stream the response."""
+        """Send a query to the agent and stream the response with automatic key failover."""
 
         # Emit agent context first
         yield {"type": "agent_context", "context": get_agent_context()}
@@ -594,7 +596,7 @@ class ContextGraphAgent:
         max_iterations = 10
 
         for _ in range(max_iterations):
-            response = self.client.models.generate_content(
+            response = gemini_pool.generate_content(
                 model=self.model,
                 contents=contents,
                 config=types.GenerateContentConfig(
